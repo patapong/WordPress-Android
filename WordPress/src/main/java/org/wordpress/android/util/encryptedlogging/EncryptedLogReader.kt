@@ -13,10 +13,10 @@ import java.io.File
  *  the key decryption from the stream decryption while decoding.
  *
  * @param key An unencrypted SecretStreamKey used to decrypt the remainder of the log.
- * @param header A `ByteArray` representing the stream header – it's used to initalize the decryption stream.
+ * @param header A `ByteArray` representing the stream header – it's used to initialize the decryption stream.
  * @param messages A `List<ByteArray>` of encrypted messages
  */
-data class EncryptedStream(val key: SecretStreamKey, val header: ByteArray, val messages: List<ByteArray>)
+class EncryptedStream(val key: SecretStreamKey, val header: ByteArray, val messages: List<ByteArray>)
 
 /**
  * EncryptedLogReader allows decrypting encrypted log files.
@@ -50,10 +50,7 @@ class EncryptedLogReader(file: File, keyPair: KeyPair) {
         val encryptedKey = EncryptedSecretStreamKey(json.getString("encryptedKey").base64Decode())
         val messagesJson = json.getJSONArray("messages")
 
-        var messages = emptyList<ByteArray>().toMutableList()
-        for (i in 0 until messagesJson.length()) {
-            messages.add(messagesJson.getString(i).base64Decode())
-        }
+        val messages = (0..messagesJson.length()).map { messagesJson.getString(it).base64Decode() }
 
         this.encryptedStream = EncryptedStream(encryptedKey.decrypt(keyPair), header, messages)
         check(sodium.cryptoSecretStreamInitPull(state, encryptedStream.header, encryptedStream.key.bytes))
@@ -66,7 +63,7 @@ class EncryptedLogReader(file: File, keyPair: KeyPair) {
         return encryptedStream.messages.fold("") { accumulated: String, cipherBytes: ByteArray -> String
             val plainBytes = ByteArray(cipherBytes.size - SecretStream.ABYTES)
 
-            var tag = ByteArray(1) // Stores the extracted tag. This implementation doesn't do anything with it.
+            val tag = ByteArray(1) // Stores the extracted tag. This implementation doesn't do anything with it.
             check(sodium.cryptoSecretStreamPull(state, plainBytes, tag, cipherBytes, cipherBytes.size.toLong()))
 
             accumulated + String(plainBytes)
