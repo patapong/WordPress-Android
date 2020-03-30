@@ -245,7 +245,8 @@ public class WordPress extends MultiDexApplication implements HasServiceInjector
 
         // Enable log recording
         AppLog.enableRecording(true);
-        AppLog.enableLogFilePersistence(this.getBaseContext(), 3);
+        // TODO: Implement async writing before enabling log file persistence
+        // AppLog.enableLogFilePersistence(this.getBaseContext(), 3);
         AppLog.addListener(new AppLogListener() {
             @Override
             public void onLog(T tag, LogLevel logLevel, String message) {
