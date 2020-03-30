@@ -23,7 +23,7 @@ class SecretStreamKey(val bytes: ByteArray) {
     }
 
     init {
-        check(bytes.size == SecretStream.KEYBYTES) {
+        require(bytes.size == SecretStream.KEYBYTES) {
             "A Secret Stream Key must be exactly ${SecretStream.KEYBYTES} bytes"
         }
     }
@@ -37,7 +37,7 @@ class SecretStreamKey(val bytes: ByteArray) {
             "The public key must be the right length"
         }
 
-        var encryptedBytes = ByteArray(EncryptedSecretStreamKey.size) // Stores the encrypted bytes
+        val encryptedBytes = ByteArray(EncryptedSecretStreamKey.size) // Stores the encrypted bytes
         check(sodium.cryptoBoxSeal(encryptedBytes, bytes, size, publicKey.asBytes)) {
             "Encrypting the message key must not fail"
         }

@@ -26,7 +26,7 @@ class EncryptedLogWriter(
     private var state = SecretStream.State.ByReference()
 
     init {
-        var header = ByteArray(SecretStream.HEADERBYTES)
+        val header = ByteArray(SecretStream.HEADERBYTES)
         val key = SecretStreamKey.generate()
         check(sodium.cryptoSecretStreamInitPush(state, header, key.bytes))
         writeHeader(key.encrypt(publicKey), header)
@@ -34,7 +34,7 @@ class EncryptedLogWriter(
 
     /**
      * Encrypt and write the provided string to the encrypted log file.
-     * @param String: The string to be written to the file.
+     * @param string The string to be written to the file.
      */
     fun write(string: String) {
         val encryptedString = encryptMessage(string, SecretStream.TAG_MESSAGE)
@@ -84,7 +84,6 @@ class EncryptedLogWriter(
         fileWriter.write("\t\"header\": \"$encodedHeader\",\n")
         fileWriter.write("\t\"uuid\": \"$uuid\",\n")
         fileWriter.write("\t\"messages\": [\n")
-        fileWriter.flush()
     }
 
     // On Android base64 has lots of options, so define a helper to make it easier to

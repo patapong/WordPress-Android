@@ -59,14 +59,12 @@ class EncryptionUtilsTest {
 
     @Test
     fun testThatLogsCanBeDecrypted() {
-        val testLogString = UUID.randomUUID().toString()
-        assertEquals(testLogString, EncryptedLogReader(logWithContent(testLogString), keypair).decrypt())
+        testEncryptingAndThenDecrypting(UUID.randomUUID().toString())
     }
 
     @Test
     fun testThatEmptyLogsCanBeEncrypted() {
-        val testLogString = ""
-        assertEquals(testLogString, EncryptedLogReader(logWithContent(testLogString), keypair).decrypt())
+        testEncryptingAndThenDecrypting("")
     }
 
     @Test
@@ -87,5 +85,9 @@ class EncryptionUtilsTest {
         enc.close()
 
         return file
+    }
+
+    private fun testEncryptingAndThenDecrypting(testString: String) {
+        assertEquals(testString, EncryptedLogReader(logWithContent(testString), keypair).decrypt())
     }
 }

@@ -50,7 +50,7 @@ class EncryptedLogReader(file: File, keyPair: KeyPair) {
         val encryptedKey = EncryptedSecretStreamKey(json.getString("encryptedKey").base64Decode())
         val messagesJson = json.getJSONArray("messages")
 
-        val messages = (0..messagesJson.length()).map { messagesJson.getString(it).base64Decode() }
+        val messages = (0 until messagesJson.length()).map { messagesJson.getString(it).base64Decode() }
 
         this.encryptedStream = EncryptedStream(encryptedKey.decrypt(keyPair), header, messages)
         check(sodium.cryptoSecretStreamInitPull(state, encryptedStream.header, encryptedStream.key.bytes))
