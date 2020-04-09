@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "640731391020",
+    "firebase_url": "https://test2-4abeb.firebaseio.com",
+    "project_id": "test2-4abeb",
+    "storage_bucket": "test2-4abeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640731391020:android:0500ba5592ab91d3dadd89",
+        "android_client_info": {
+          "package_name": "net.test.wordpress"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640731391020-9hkmvn0a857efr3q52bl4n9b3ljs8c0e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlSqP65iMRsk8NEEKMUPviOUOn0b92Nv4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640731391020-9hkmvn0a857efr3q52bl4n9b3ljs8c0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
